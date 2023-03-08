@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Pupil;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FilterRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class FilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'sex' => 'string',
+            'filter' => 'string',
+            'ot' => '',
+            'do' => '',
         ];
     }
 }

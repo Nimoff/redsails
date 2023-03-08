@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Filterable;
+use App\Filters\QueryFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
 class Pupil extends Model
 {
     use HasFactory;
-    use Filterable;
 
     protected $table = 'pupil';
     protected $guarded = false;
     public $timestamps = false;
+
+    public function scopeFilter(Builder $builder, QueryFilter $filter)
+    {
+        return $filter->apply($builder);
+    }
 }
