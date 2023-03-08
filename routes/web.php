@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/', 'IndexController@index')->name('pupil.index');
+    Route::post('/', 'IndexController@filter')->name('pupil.index');
 
 
     Route::group(['namespace' => 'Pupil', 'prefix' => 'pupil'], function () {

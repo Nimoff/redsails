@@ -4,20 +4,22 @@
     <div class="all_filtr">
         <div class="filtr">
 
-            <form class="form_filtr" action="index.html" method="post">
-                <select class="form-select padding_left" aria-label="Default select example" name="filtr">
-                    <option selected>Алфавит</option>
-                    <option value="">Возраст</option>
-                    <option value="2">Зачисление</option>
-                    <option value="3">Декабристов</option>
-                    <option value="3">Ясный</option>
+            <form class="form_filtr" action="{{route('pupil.index')}}" method="POST">
+                @csrf
+                @method('POST')
+                <select class="form-select padding_left" aria-label="Default select example" name="filter">
+                    <option value="sort" selected>Алфавит</option>
+                    <option value="age">Возраст</option>
+                    <option value="entrance">Зачисление</option>
+                    <option value="город Москва, Ясный проезд, дом 24А">Декабристов</option>
+                    <option value="corpusY">Ясный</option>
                 </select>
 
                 <div class="form-group padding_left">
-                    <input type="text" class="form-control" id="inputPassword2" placeholder="От">
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="От" name="ot">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="inputPassword2" placeholder="До">
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="До" name="do">
                 </div>
                 <button type="submit" class="btn btn-primary padding_left">Фильтр</button>
 
@@ -39,10 +41,10 @@
     </div>
     <div class="items_filtr">
         <div class="item_f">Всего детей: <b>{{ $pupils->count() }}</b></div>
-        <div class="item_f"><a href="#">Мальчики: <b>{{ $pupils->where('sex', 'Мужской')->count() }}</b></a></div>
-        <div class="item_f"><a href="#">Девочки: <b>{{ $pupils->where('sex', 'Женский')->count() }}</b></a></div>
-        <div class="item_f"><a href="#">Инвалиды: <b>{{ $pupils->where('disability', 'Да')->count() }}</b></a></div>
-        <div class="item_f"><a href="#">Временные: <b>{{ $pupils->where('placement', 'Временно')->count() }}</b></a>
+        <div class="item_f"><a href="?sex=Мужской">Мальчики: <b>{{ $pupils->where('sex', 'Мужской')->count() }}</b></a></div>
+        <div class="item_f"><a href="?sex=Женский">Девочки: <b>{{ $pupils->where('sex', 'Женский')->count() }}</b></a></div>
+        <div class="item_f"><a href="?{{ http_build_query(array_merge($_GET, ["disability"=>"Да"])) }}">Инвалиды: <b>{{ $pupils->where('disability', 'Да')->count() }}</b></a></div>
+        <div class="item_f"><a href="?placement=Временно">Временные: <b>{{ $pupils->where('placement', 'Временно')->count() }}</b></a>
         </div>
         <div class="item_f"><a href="#">ОВЗ: <b>{{ $pupils->where('ovz', 'Да')->count() }}</b></a></div>
         <div class="item_f"><a href="#">Декабристов:
